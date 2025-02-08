@@ -29,3 +29,16 @@ func potatoes (_ p0: Int, _ w0: Int, _ p1: Int) -> Int {
 }
 
 potatoes(99, 100, 98)
+
+// 8/2/25
+// Kata: https://www.codewars.com/kata/54bf1c2cd5b56cc47f0007a1
+func countDuplicates(_ input: String) -> Int {
+	guard !input.isEmpty else { return 0 }
+	var characterCount: [Character : Int] = [:]
+	for character in input.lowercased() {
+		characterCount[character, default: 0] += 1
+	}
+	return characterCount.values.filter { $0 > 1}.count
+}
+
+countDuplicates("Hahaha this is a test")
