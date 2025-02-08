@@ -52,3 +52,30 @@ print(isAnagram("roma", "amor"))
 print(isAnagram("coche", "moto"))
 print(isAnagram("abc", "cba"))
 print(isAnagram("book", "book"))
+
+
+// 8/2/25 - Challenge:
+
+/*
+ * Escribe un programa que se encargue de comprobar si un número es o no primo.
+ * Hecho esto, imprime los números primos entre 1 y 100.
+ */
+
+func isPrime(_ num: Int) -> Bool {
+	guard num != 1 else { return false }
+	guard num != 2 else { return true }
+	guard num > 2 && num % 2 != 0 else { return false }
+	let limit = Int(Double(num).squareRoot())
+	for i in stride(from: 3, to: limit, by: 2) {
+		if num % i == 0 {
+			return false
+		}
+	}
+	return true
+}
+
+for num in 1...100 {
+	if isPrime(num) {
+		print(num)
+	}
+}
