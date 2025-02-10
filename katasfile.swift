@@ -42,3 +42,12 @@ func countDuplicates(_ input: String) -> Int {
 }
 
 countDuplicates("Hahaha this is a test")
+
+// 10/2/25
+// Kata: https://www.codewars.com/kata/526571aae218b8ee490006f4
+func countBits(_ num: Int) -> Int {
+	guard num >= 0 else { return 0 }
+	return String(num, radix: 2).filter { $0 == "1" }.count
+}
+
+print(countBits(1234))

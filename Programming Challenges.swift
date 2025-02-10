@@ -56,7 +56,7 @@ print(isAnagram("book", "book"))
 
 // 8/2/25 - Challenge:
 
-/*
+/* ¿Es un número primo?
  * Escribe un programa que se encargue de comprobar si un número es o no primo.
  * Hecho esto, imprime los números primos entre 1 y 100.
  */
@@ -79,3 +79,33 @@ for num in 1...100 {
 		print(num)
 	}
 }
+
+// 10/2/25 - Challenge:
+/* Area de un polígono
+ * Crea una única función (importante que sólo sea una) que sea capaz
+ * de calcular y retornar el área de un polígono.
+ * - La función recibirá por parámetro sólo UN polígono a la vez.
+ * - Los polígonos soportados serán Triángulo, Cuadrado y Rectángulo.
+ * - Imprime el cálculo del área de un polígono de cada tipo.
+ */
+
+enum Polygon {
+	case triangle(base: Double, height: Double)
+	case square(side: Double)
+	case rectangle(width: Double, height: Double)
+}
+
+func polygonArea(_ polygon: Polygon) -> Double {
+	switch polygon {
+		case .triangle(let base, let height):
+			return (base * height) / 2
+		case .square(let side):
+			return side * side
+		case .rectangle(let width, let height):
+			return width * height
+	}
+}
+
+print(polygonArea(.square(side: 5)))
+print(polygonArea(.rectangle(width: 10, height: 2)))
+print(polygonArea(.triangle(base: 6, height: 18)))
