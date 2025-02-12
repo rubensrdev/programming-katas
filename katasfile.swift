@@ -51,3 +51,22 @@ func countBits(_ num: Int) -> Int {
 }
 
 print(countBits(1234))
+
+// 12/2/25
+// Kata: https://www.codewars.com/kata/599bb194b7a047b04d000077
+func howManyPizzas(_ n: Int) -> String {
+	let radius = Double(n) / 2.0
+	let area = Double.pi * pow(radius, 2)
+	let areaOfEightInch = Double.pi * pow(4, 2)
+	let numberOfPizzas = area / areaOfEightInch
+	let completePizzas = Int(numberOfPizzas)
+	let sliceOfPizza = Int(round(numberOfPizzas.truncatingRemainder(dividingBy: 1) * 8))
+	return "pizzas: \(completePizzas), slices: \(sliceOfPizza)"
+}
+
+howManyPizzas(16)
+howManyPizzas(12)
+howManyPizzas(8)
+howManyPizzas(6)
+howManyPizzas(0)
+

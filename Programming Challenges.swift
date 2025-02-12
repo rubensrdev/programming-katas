@@ -109,3 +109,23 @@ func polygonArea(_ polygon: Polygon) -> Double {
 print(polygonArea(.square(side: 5)))
 print(polygonArea(.rectangle(width: 10, height: 2)))
 print(polygonArea(.triangle(base: 6, height: 18)))
+
+
+// 12/2/25 - Challenge:
+/* Invirtiendo cadenas
+ * Crea un programa que invierta el orden de una cadena de texto
+ * sin usar funciones propias del lenguaje que lo hagan de forma automática.
+ * - Si le pasamos "Hola mundo" nos retornaría "odnum aloH"
+ */
+
+func invertedChain(_ text: String) -> String {
+	guard !text.isEmpty else { return "" }
+	var inverted = ""
+	for letter in text {
+		inverted.insert(letter, at: inverted.startIndex)
+	}
+	return inverted
+}
+
+invertedChain("Hello world!")
+invertedChain("It's work")
