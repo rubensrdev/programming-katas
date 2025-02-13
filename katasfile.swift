@@ -70,3 +70,43 @@ howManyPizzas(8)
 howManyPizzas(6)
 howManyPizzas(0)
 
+// 13/2/25
+// Kata: https://www.codewars.com/kata/5fc7d2d2682ff3000e1a3fbc 
+func isAValidMessage(_ message: String) -> Bool {
+	guard !message.isEmpty else { return true }
+
+	var characters = Array(message)
+	var index = 0
+	var pairs: [(Int, String)] = []
+
+	while index < characters.count {
+		var numberString = ""
+		while index < characters.count, let _ = Int(String(characters[index])) {
+			numberString.append(characters[index])
+			index += 1
+		}
+		
+		guard let number = Int(numberString) else { return false }
+		
+		var word = ""
+		while index < characters.count, characters[index].isLetter {
+			word.append(characters[index])
+			index += 1
+		}
+
+		if word.count != number {
+			return false
+		}
+
+		pairs.append((number, word))
+	}
+
+	return true
+}
+
+isAValidMessage("3hey5hello2hi")
+isAValidMessage("4code13hellocodewars")
+isAValidMessage("3hey5hello2hi5")
+isAValidMessage("code4hello5")
+isAValidMessage("1a2bb3ccc4dddd5eeeee")
+isAValidMessage("")

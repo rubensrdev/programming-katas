@@ -129,3 +129,34 @@ func invertedChain(_ text: String) -> String {
 
 invertedChain("Hello world!")
 invertedChain("It's work")
+
+// 13/2/25 - Challenge:
+/* Contando palabras
+ * Crea un programa que cuente cuantas veces se repite cada palabra
+ * y que muestre el recuento final de todas ellas.
+ * - Los signos de puntuación no forman parte de la palabra.
+ * - Una palabra es la misma aunque aparezca en mayúsculas y minúsculas.
+ * - No se pueden utilizar funciones propias del lenguaje que
+ *   lo resuelvan automáticamente.
+ */
+
+import Foundation
+
+func countWordsIn(text: String) -> [String:Int] {
+	guard !text.isEmpty else { return [:] }
+	let cleanText = text
+		.lowercased()
+		.filter { $0.isLetter || $0.isWhitespace }
+	
+	let words = cleanText.split(separator: " ").map(String.init)
+	
+	return words.reduce(into: [:]) { counts, word in
+		counts[word, default: 0] += 1
+	}
+}
+
+let result = countWordsIn(text: "Hello world! Hello Swift. Swift is awesome, awesome awesome.")
+
+result.forEach { key, value in
+	print("Word: \(key), count: \(value)")
+}
