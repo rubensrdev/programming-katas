@@ -110,3 +110,56 @@ isAValidMessage("3hey5hello2hi5")
 isAValidMessage("code4hello5")
 isAValidMessage("1a2bb3ccc4dddd5eeeee")
 isAValidMessage("")
+
+// 14/2/25
+// Kata: https://www.codewars.com/kata/558fc85d8fd1938afb000014
+func sumOfTwoSmallestIntegersIn(_ group: [Int]) -> Int {
+	guard group.count >= 4 else { return 0 }
+	return group.sorted().prefix(2).reduce(0, +)
+}
+
+sumOfTwoSmallestIntegersIn([7,12,4,99,3,100])
+
+// Kata: https://www.codewars.com/kata/55b3425df71c1201a800009c
+func formatTime(_ seconds: Int) -> String {
+	let hours = seconds / 3600
+	let minutes = (seconds % 3600) / 60
+	let secondsPart = seconds % 60
+	return String(format: "%02d:%02d:%02d", hours, minutes, secondsPart)
+}
+
+func stat(_ times: String) -> String {
+	guard !times.isEmpty else { return "" }
+
+	let timesSplitByCommas = times.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+	let timesSplitByBar = timesSplitByCommas.map { $0.split(separator: "|").compactMap { Int($0) } }
+
+	let timesInSeconds = timesSplitByBar.map { time in
+		time.enumerated().reduce(0) { total, element in
+			let (index, value) = element
+			return total + value * (index == 0 ? 3600 : index == 1 ? 60 : 1)
+		}
+	}
+
+	guard !timesInSeconds.isEmpty else { return "" }
+
+	let range = (timesInSeconds.max() ?? 0) - (timesInSeconds.min() ?? 0)
+	let average = timesInSeconds.reduce(0, +) / timesInSeconds.count
+
+	let sortedTimes = timesInSeconds.sorted()
+	let median = sortedTimes.count.isMultiple(of: 2)
+		? (sortedTimes[sortedTimes.count / 2 - 1] + sortedTimes[sortedTimes.count / 2]) / 2
+		: sortedTimes[sortedTimes.count / 2]
+
+	func formatTime(_ seconds: Int) -> String {
+		let hh = seconds / 3600
+		let mm = (seconds % 3600) / 60
+		let ss = seconds % 60
+		return String(format: "%02d|%02d|%02d", hh, mm, ss)
+	}
+
+	let formattedTimesResult = [range, average, median].map { formatTime($0) }
+	return "Range: \(formattedTimesResult[0]) Average: \(formattedTimesResult[1]) Median: \(formattedTimesResult[2])"
+}
+
+stat("02|15|59, 02|47|16, 02|17|20, 02|32|34, 02|17|17,02|22|00,02|31|41")

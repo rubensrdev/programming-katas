@@ -160,3 +160,26 @@ let result = countWordsIn(text: "Hello world! Hello Swift. Swift is awesome, awe
 result.forEach { key, value in
 	print("Word: \(key), count: \(value)")
 }
+
+// 14/2/25 - Challenge:
+/* Decimal a binario
+ * Crea un programa se encargue de transformar un número
+ * decimal a binario sin utilizar funciones propias del lenguaje que lo hagan directamente.
+ */
+
+func decimalToBinary(_ number: Int) -> String {
+	guard number > 0 else { return "0" }
+	var num = number
+	var binaryNumber: [Int] = []
+	
+	while num > 0 {
+		binaryNumber.append(num % 2) // Agrega al final
+		num /= 2
+	}
+	
+	return binaryNumber.reversed().map { String($0) }.joined()
+}
+
+decimalToBinary(10)
+decimalToBinary(23)
+decimalToBinary(7)
