@@ -183,3 +183,59 @@ func decimalToBinary(_ number: Int) -> String {
 decimalToBinary(10)
 decimalToBinary(23)
 decimalToBinary(7)
+
+// 15/2/25 - Challenge:
+/* Código Morse
+ * Crea un programa que sea capaz de transformar texto natural a código
+ * morse y viceversa.
+ * - Debe detectar automáticamente de qué tipo se trata y realizar
+ *   la conversión.
+ * - En morse se soporta raya "—", punto ".", un espacio " " entre letras
+ *   o símbolos y dos espacios entre palabras "  ".
+ * - El alfabeto morse soportado será el mostrado en
+ *   https://es.wikipedia.org/wiki/Código_morse.
+ */
+
+import Foundation
+
+let morseDictionary: [Character: String] = [
+	"A": ".-", "B": "-...", "C": "-.-.", "D": "-..", "E": ".", "F": "..-.",
+	"G": "--.", "H": "....", "I": "..", "J": ".---", "K": "-.-", "L": ".-..",
+	"M": "--", "N": "-.", "O": "---", "P": ".--.", "Q": "--.-", "R": ".-.",
+	"S": "...", "T": "-", "U": "..-", "V": "...-", "W": ".--", "X": "-..-",
+	"Y": "-.--", "Z": "--..",
+	"0": "-----", "1": ".----", "2": "..---", "3": "...--", "4": "....-",
+	"5": ".....", "6": "-....", "7": "--...", "8": "---..", "9": "----.",
+	".": ".-.-.-", ",": "--..--", "?": "..--..", "'": ".----.", "!": "-.-.--",
+	"/": "-..-.", "(": "-.--.", ")": "-.--.-", "&": ".-...", ":": "---...",
+	";": "-.-.-.", "=": "-...-", "+": ".-.-.", "-": "-....-", "_": "..--.-",
+	"\"": ".-..-.", "$": "...-..-", "@": ".--.-."
+]
+
+let textDictionary: [String: Character] = Dictionary(uniqueKeysWithValues: morseDictionary.map { ($1, $0) })
+
+func transformText(_ text: String) -> String {
+	if text.allSatisfy({ ".- ".contains($0) }) {
+		return text
+			.split(separator: "  ")
+			.map { word in
+				word.split(separator: " ")
+					.compactMap { textDictionary[String($0)].map(String.init) }
+					.joined()
+			}
+			.joined(separator: " ")
+	} else {
+		return text
+			.uppercased()
+			.split(separator: " ")
+			.map { word in
+				word.compactMap { morseDictionary[$0] }
+					.joined(separator: " ")
+			}
+			.joined(separator: "  ")
+	}
+}
+
+print(transformText("HELLO WORLD"))
+print(transformText(".... . .-.. .-.. ---  .-- --- .-. .-.. -.."))
+

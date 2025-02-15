@@ -163,3 +163,40 @@ func stat(_ times: String) -> String {
 }
 
 stat("02|15|59, 02|47|16, 02|17|20, 02|32|34, 02|17|17,02|22|00,02|31|41")
+
+// 15/2/25
+// Kata: https://www.codewars.com/kata/52763db7cffbc6fe8c0007f8
+func tongues(_ code: String) -> String {
+	guard !code.isEmpty else { return "" }
+	let voewlsTransformation: [Character: Character] = [
+		"a":"e",
+		"i":"o",
+		"y":"u",
+		"e":"a",
+		"o":"i",
+		"u":"y",
+		"A":"E",
+		"I":"O",
+		"Y":"U",
+		"E":"A",
+		"O":"I",
+		"U":"Y"
+	]
+	
+	let consonantsTransformation: [Character: Character] = [
+		"b": "p", "k": "v", "x": "j", "z": "q", "n": "t",
+		"h": "s", "d": "r", "c": "l", "w": "m", "g": "f",
+		"p": "b", "v": "k", "j": "x", "q": "z", "t": "n",
+		"s": "h", "r": "d", "l": "c", "m": "w", "f": "g",
+		"B": "P", "K": "V", "X": "J", "Z": "Q", "N": "T",
+		"H": "S", "D": "R", "C": "L", "W": "M", "G": "F",
+		"P": "B", "V": "K", "J": "X", "Q": "Z", "T": "N",
+		"S": "H", "R": "D", "L": "C", "M": "W", "F": "G"
+	]
+	
+	return String(code.map { char in
+		voewlsTransformation[char] ?? consonantsTransformation[char] ?? char
+	})
+}
+
+tongues("One ring to rule them all")
