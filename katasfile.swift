@@ -200,3 +200,15 @@ func tongues(_ code: String) -> String {
 }
 
 tongues("One ring to rule them all")
+
+// 17/2/25
+// Kata: https://www.codewars.com/kata/566be96bb3174e155300001b
+func maxBall(_ vInKmh: Int) -> Int {
+	let vInMs: Double = Double(vInKmh) * (5.0/18.0)
+	let timeWithMaxHeight: Double = vInMs / 9.81
+	let timeInTenhtsOfSeconds: Double = timeWithMaxHeight * 10
+	return Int(round(timeInTenhtsOfSeconds))
+}
+
+maxBall(15)
+maxBall(25)
