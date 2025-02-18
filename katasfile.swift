@@ -212,3 +212,23 @@ func maxBall(_ vInKmh: Int) -> Int {
 
 maxBall(15)
 maxBall(25)
+
+// 18/2/25
+// Kata: https://www.codewars.com/kata/59590976838112bfea0000fa
+func beggars(_ values: [Int], _ n: Int) -> [Int] {
+	guard !values.isEmpty, n > 0 else {
+		return Array(repeating: 0, count: n)
+	}
+	var result: [Int] = Array(repeating: 0, count: n)
+	for (i, value) in values.enumerated() {
+		let beggarIndex = i % n
+		result[beggarIndex] += value
+	}
+	return result
+}
+
+beggars([1,2,3,4,5], 2)
+beggars([1,2,3,4,5], 3)
+beggars([10, 20, 30, 40, 50, 60], 3)
+beggars([], 3)
+beggars([5, 10, 15], 4)

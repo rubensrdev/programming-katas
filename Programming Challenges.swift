@@ -239,3 +239,36 @@ func transformText(_ text: String) -> String {
 print(transformText("HELLO WORLD"))
 print(transformText(".... . .-.. .-.. ---  .-- --- .-. .-.. -.."))
 
+// 18/2/25 - Challenge:
+/* Expresiones equilibradas
+ * Crea un programa que comprueba si los paréntesis, llaves y corchetes
+ * de una expresión están equilibrados.
+ * - Equilibrado significa que estos delimitadores se abren y cieran
+ *   en orden y de forma correcta.
+ * - Paréntesis, llaves y corchetes son igual de prioritarios.
+ *   No hay uno más importante que otro.
+ * - Expresión balanceada: { [ a * ( c + d ) ] - 5 }
+ * - Expresión no balanceada: { a * ( c + d ) ] - 5 }
+ */
+
+func expressionIsBalanced(_ expression: String) -> Bool {
+	var stack: [Character] = []
+	let matchingPairs: [Character: Character] = [")": "(", "]": "[", "}": "{"]
+
+	for character in expression {
+		if matchingPairs.values.contains(character) {
+			stack.append(character)  
+		} else if let expectedOpening = matchingPairs[character] {
+			guard let lastOpening = stack.popLast(), lastOpening == expectedOpening else {
+				return false
+			}
+		}
+	}
+	
+	return stack.isEmpty
+}
+
+expressionIsBalanced("{ [ a * ( c + d ) ] - 5 }")
+expressionIsBalanced("[({})]")
+expressionIsBalanced("({)")
+expressionIsBalanced("a + b * {c - d / (e + [f - g]}")
