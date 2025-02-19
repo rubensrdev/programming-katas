@@ -232,3 +232,39 @@ beggars([1,2,3,4,5], 3)
 beggars([10, 20, 30, 40, 50, 60], 3)
 beggars([], 3)
 beggars([5, 10, 15], 4)
+
+// 19/2/25
+// Kata: https://www.codewars.com/kata/5a03b3f6a1c9040084001765
+func angle(_ n: Int) -> Int {
+	guard n > 2 else { return 0 }
+	return (n - 2) * 180
+}
+
+angle(3)
+angle(5)
+
+// Kata: https://www.codewars.com/kata/51b6249c4612257ac0000005
+let romanSymbols: [String:Int] = [
+	"I": 1,
+	"V": 5,
+	"X": 10,
+	"L": 50,
+	"C": 100,
+	"D": 500,
+	"M": 1000
+]
+
+func romanToInt(_ s: String) -> Int {
+	var result = 0
+	for i in s.indices.dropLast() {
+		guard let currentValue = romanSymbols[String(s[i])],
+			  let nextValue = romanSymbols[String(s[s.index(after: i)])] else { continue }
+		result += (currentValue < nextValue) ? -currentValue : currentValue
+	}
+	if let lastValue = romanSymbols[String(s.last!)] {
+		result += lastValue
+	}
+	return result
+}
+
+romanToInt("IIVXL")
