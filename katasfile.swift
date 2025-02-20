@@ -268,3 +268,35 @@ func romanToInt(_ s: String) -> Int {
 }
 
 romanToInt("IIVXL")
+
+// 20/2/25
+// Kata: https://www.codewars.com/kata/55e7280b40e1c4a06d0000aa
+extension Array {
+	func combinations(of size: Int) -> [[Element]] {
+		guard size > 0, size <= count else { return size == 0 ? [[]] : [] }
+		if size == 1 { return map { [$0] } }
+		
+		return indices.flatMap { index in
+			Array(self[(index + 1)...]).combinations(of: size - 1).map { [self[index]] + $0 }
+		}
+	}
+}
+
+func chooseBestSum(_ maximunDrivingDistance: Int, _ citiesToSelect: Int, _ distanceBetweenCities: [Int]) -> Int {
+	guard distanceBetweenCities.count >= citiesToSelect else {
+		return -1
+	}
+	guard citiesToSelect > 0 else {
+		return -1
+	}
+	let allCombinations = distanceBetweenCities.combinations(of: citiesToSelect)
+	let validSums = allCombinations
+			.map { $0.reduce(0, +) }
+			.filter { $0 <= maximunDrivingDistance }
+	
+	return validSums.max() ?? -1
+}
+
+print(chooseBestSum(174, 3, [50, 55, 57, 58, 60]))
+print(chooseBestSum(163, 3, [50]))
+print(chooseBestSum(230, 3, [91, 74, 73, 85, 73, 81, 87]))
