@@ -272,3 +272,43 @@ expressionIsBalanced("{ [ a * ( c + d ) ] - 5 }")
 expressionIsBalanced("[({})]")
 expressionIsBalanced("({)")
 expressionIsBalanced("a + b * {c - d / (e + [f - g]}")
+
+// 21/2/25 - Challenge:
+/* Eliminando caracteres
+ * Crea una función que reciba dos cadenas como parámetro (str1, str2)
+ * e imprima otras dos cadenas como salida (out1, out2).
+ * - out1 contendrá todos los caracteres presentes en la str1 pero NO
+ *   estén presentes en str2.
+ * - out2 contendrá todos los caracteres presentes en la str2 pero NO
+ *   estén presentes en str1.
+ */
+func dropingCharacters(str1: String, str2: String) -> (out1: String, out2: String) {
+	var out1 = ""
+	var out2 = ""
+	let str1Set = Set(str1)
+	let str2Set = Set(str2)
+	out1 = str1.filter { !str2Set.contains($0) }
+	out2 = str2.filter { !str1Set.contains($0) }
+	return (out1, out2)
+}
+
+dropingCharacters(str1: "abcdef", str2: "dexyb")
+
+/* ¿Es un palíndromo?
+ * Escribe una función que reciba un texto y retorne verdadero o
+ * falso (Boolean) según sean o no palíndromos.
+ * Un Palíndromo es una palabra o expresión que es igual si se lee
+  * de izquierda a derecha que de derecha a izquierda.
+ * NO se tienen en cuenta los espacios, signos de puntuación y tildes.
+ * Ejemplo: Ana lleva al oso la avellana.
+ */
+func isPalindrome(_	input: String) -> Bool {
+	let cleanedInput = input.lowercased().applyingTransform(.stripDiacritics, reverse: false)?.filter { $0.isLetter } ?? ""
+	let reversedInput = String(cleanedInput.reversed())
+	return cleanedInput == reversedInput
+}
+
+isPalindrome("La ruta natural")
+isPalindrome("Yo hago yoga hoy")
+isPalindrome("Swift es genial")
+isPalindrome("Hola mundo")
